@@ -1,21 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, } from 'react'
+import { MessageElmement } from './MessageElement'
 
-export function ChatCard() {
-   const [msg, setMsg] = useState("")
-   const [socket, setSocket] = useState(null)
-
-   function sendMsg() {
-      socket.send(msg)
-   }
-
-   useEffect(() => {
-      let conn = new WebSocket("ws://localhost:8080/ws");
-      setSocket(conn)
-   }, [])
-
+export function ChatCard({ sendMsg, msg, msgList,setMsg }) {
    return (
       <>
-         <textarea name="messages_area" id="chat_box" cols="50" rows="4" readOnly></textarea>
+         <div className="message_box">
+            <ul className='message_list'>
+               {
+                  msgList.map(msg_ => {
+                     return <MessageElmement msg={msg_} user="Anonymous"/>
+                  })
+               }
+            </ul>  
+         </div>
          <input type="text" value={msg} onInput={(e) => setMsg(e.target.value)} placeholder='Type something...' />
          <button onClick={() => sendMsg()}>Send</button>
       </>

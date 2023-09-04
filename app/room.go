@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 )
 
@@ -33,9 +34,12 @@ func (r *Room) run() {
 	for {
 		select {
 		case client := <-r.joinChan:
+			// client.socket.WriteMessage(websocket.TextMessage, []byte(client.id))
+			log.Println("New Connection : (uuid: " + client.id + ")")
 			r.clients[client] = true
 
 		case client := <-r.leaveChan:
+			log.Println("Client left : (uuid: " + client.id + ")")
 			delete(r.clients, client)
 			close(client.receiveChan)
 
@@ -66,6 +70,7 @@ func (r *Room) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 
 	client := &Client{
+		id:          uuid.NewString(),
 		socket:      socket,
 		receiveChan: make(chan []byte, messageBufferSize),
 		room:        r,

@@ -1,3 +1,45 @@
-#chat_box {
-   resize: none;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+
+body {
+   font-family: 'Roboto';
 }
+
+.message_box{
+   display : block;
+   border: 3px solid var(--focus);
+   border-radius: 5px; 
+   width:70%;
+   height: 400px;
+   overflow-y: scroll;
+   background-color: var(--background);
+   margin: 1rem auto;
+}
+
+.message_list {
+   list-style: none;
+   padding: 0;
+}
+
+.message {
+   margin: 1rem .5rem;
+   padding: 0 1rem; 
+   border: 2px solid rgb(121, 120, 120);
+   border-radius: 5px;
+}
+
+.user {
+   font-weight: bold;
+   /* background: --webkit-l(#eee, #076e8d); */
+   background: -webkit-linear-gradient(#eee, #076e8d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: .1rem;
+  padding:0;
+}
+
+.content {
+   padding: .1rem;
+   margin: 0;
+   overflow: wrap;
+}
+

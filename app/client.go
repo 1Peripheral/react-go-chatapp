@@ -1,10 +1,14 @@
 package main
 
 import (
+	"log"
+
 	"github.com/gorilla/websocket"
 )
 
 type Client struct {
+	id string
+
 	socket *websocket.Conn
 
 	receiveChan chan []byte
@@ -17,6 +21,7 @@ func (c *Client) read() {
 	for {
 		_, msg, err := c.socket.ReadMessage()
 		if err != nil {
+			log.Println()
 			return
 		}
 		c.room.forwardChan <- msg
